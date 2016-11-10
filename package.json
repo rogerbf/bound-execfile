@@ -1,6 +1,6 @@
 {
   "name": "bound-execfile",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "execFile bound to a command",
   "main": "./distribution/index.js",
   "scripts": {
@@ -45,5 +45,13 @@
     "distribution",
     "README.md"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogerbf/bound-execfile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rogerbf/bound-execfile/issues"
+  },
+  "homepage": "https://github.com/rogerbf/bound-execfile#readme"
 }
