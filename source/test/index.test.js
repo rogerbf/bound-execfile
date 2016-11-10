@@ -1,52 +1,163 @@
 import test from 'tape'
-import command from '../index'
-import { tmpdir } from 'os'
+import exec from '../index'
 
-test(`command`, assert => {
-  assert.ok(typeof (command) === `function`, `exports function`)
+test(`exec`, assert => {
+  assert.ok(typeof (exec) === `function`, `is a function`)
 
-  const node = command(`node`)
+  assert.test(`returns a function`, assert => {
+    const node = exec(`node`)
+    assert.ok(typeof (node) === `function`)
+    assert.end()
+  })
 
-  assert.ok(typeof (node) === `function`, `returns a function`)
+  const node = exec(`node`)
 
-  node(`--version`)
-    .then(output => assert.equal(output, process.version))
-    .catch(err => assert.notOk(err))
+  assert.test(`single argument (string)`, assert => {
+    node(`--version`)
+      .then(output => {
+        assert.equal(output, process.version)
+        assert.end()
+      })
+      .catch(err => {
+        assert.notOk(err, `this should never be evaluated`)
+        assert.end()
+      })
+  })
 
-  node([`--version`])
-    .then(output => assert.equal(output, process.version))
-    .catch(err => assert.notOk(err))
+  assert.test(`single argument (array)`, assert => {
+    node([`--version`])
+      .then(output => {
+        assert.equal(output, process.version)
+        assert.end()
+      })
+      .catch(err => {
+        assert.notOk(err)
+        assert.end()
+      })
+  })
 
-  node(`notavalidarg`)
-    .then(r => assert.notOk(r))
-    .catch(e => assert.ok(e))
+  assert.test(`multiple arguments, should resolve with no value`, assert => {
+    node([`-e`, `const robot = "ruler"`])
+      .then(output => {
+        assert.notOk(output)
+        assert.end()
+      })
+      .catch(err => {
+        assert.notOk(err, `this should never be evaluated`)
+        assert.end()
+      })
+  })
 
-  node([`-e`, `process.stderr.write("bad stuff")`])
-    .then(r => assert.notOk(r))
-    .catch(e => assert.equal(e, `bad stuff`))
+  assert.test(`error should be caught`, assert => {
+    node(`notavalidarg`)
+      .then(r => {
+        assert.notOk(r, `this should never be evaluated`)
+        assert.end()
+      })
+      .catch(e => {
+        assert.ok(e)
+        assert.end()
+      })
+  })
 
-  node([`-e`, `process.stdout.write("success")`])
-    .then(r => assert.equal(r, `success`))
-    .catch(e => assert.notOk(e))
+  assert.test(`error should be caught`, assert => {
+    node([`-e`, `process.exit(1)`])
+      .then(r => {
+        assert.notOk(r, `this should never be evaluated`)
+        assert.end()
+      })
+      .catch(e => {
+        assert.ok(e)
+        assert.end()
+      })
+  })
 
-  node(
-    [`-e`, `process.stdout.write(process.cwd())`],
-    { cwd: process.cwd() }
-  )
-    .then(r => assert.equal(r, process.cwd()))
-    .catch(e => assert.notOk(e))
+  assert.test(`error should be caught`, assert => {
+    node([`-e`, `process.stderr.write("bad stuff")`])
+      .then(r => {
+        assert.notOk(r, `this should never be evaluated`)
+        assert.end()
+      })
+      .catch(e => {
+        assert.equal(e, `bad stuff`)
+        assert.end()
+      })
+  })
 
-  const thisShouldNotExistWouldBeWeirdIfItDid = command(`greatestApplicationMhm`)
+  assert.test(`expected output`, assert => {
+    node([`-e`, `process.stdout.write("success")`])
+      .then(r => {
+        assert.equal(r, `success`)
+        assert.end()
+      })
+      .catch(e => {
+        assert.notOk(e, `this should never be evaluated`)
+        assert.end()
+      })
+  })
 
-  thisShouldNotExistWouldBeWeirdIfItDid()
-    .then(r => assert.notOk(r))
-    .catch(e => assert.ok(e))
+  assert.test(`expected output`, assert => {
+    node(
+      [`-e`, `process.stdout.write(process.cwd())`],
+      { cwd: process.cwd() }
+    )
+      .then(r => {
+        assert.equal(r, process.cwd())
+        assert.end()
+      })
+      .catch(e => {
+        assert.notOk(e)
+        assert.end()
+      })
+  })
 
-  const noCommand = command()
+  assert.test(`expected output`, assert => {
+    node(
+      [`-e`, `process.stdout.write(process.cwd())`],
+      { cwd: process.cwd(), maxBuffer: 200 * 1024 }
+    )
+      .then(r => {
+        assert.equal(r, process.cwd())
+        assert.end()
+      })
+      .catch(e => {
+        assert.notOk(e)
+        assert.end()
+      })
+  })
 
-  noCommand()
-    .then(r => assert.notOk(r))
-    .catch(e => assert.ok(e))
+  assert.test(`define options during binding`, assert => {
+    const otherNode = exec(`node`, { cwd: process.cwd() })
+
+    otherNode([`-e`, `process.stdout.write(process.cwd())`])
+      .then(r => {
+        assert.equal(r, process.cwd())
+        assert.end()
+      })
+      .catch(e => {
+        assert.notOk(e)
+        assert.end()
+      })
+  })
+
+  assert.test(`binding to non existing binary`, assert => {
+    const missingCommand = exec(`thisShouldNotExistWouldBeWeirdIfItDid`)
+
+    missingCommand()
+      .then(r => {
+        assert.notOk(r, `this should never be evaluated`)
+        assert.end()
+      })
+      .catch(e => {
+        assert.ok(e, `got an error`)
+        assert.end()
+      })
+  })
+
+  assert.test(`empty invocation`, assert => {
+    assert.throws(() => exec())
+    assert.end()
+  })
 
   assert.end()
 })
