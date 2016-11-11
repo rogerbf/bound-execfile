@@ -159,5 +159,10 @@ test(`exec`, assert => {
     assert.end()
   })
 
+  assert.test(`empty string invocation`, assert => {
+    assert.throws(() => exec(``))
+    assert.end()
+  })
+
   assert.end()
 })
