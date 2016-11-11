@@ -20,7 +20,7 @@ node([`-e`, `process.stdout.write("growling")`])
 
 ## options
 
-Using this module without setting any options gives you an increased `maxBuffer` of 10 megabytes. It is possible to override that value and/or pass other options to the underlying `execFile` call:
+Using this module without setting any options gives you an increased `maxBuffer` of 10 megabytes. It is possible to override that value and/or pass other options to the underlaying `execFile` call:
 
 ```javascript
 const node = exec(`node`, { maxBuffer: 200 * 1024, cwd: `/private/tmp` })

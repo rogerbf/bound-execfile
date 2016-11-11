@@ -1,6 +1,6 @@
 {
   "name": "bound-execfile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "execFile bound to a command",
   "main": "./distribution/index.js",
   "scripts": {
