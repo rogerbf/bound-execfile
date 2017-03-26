@@ -2481,6 +2481,13 @@ optionator@^0.8.1, optionator@^0.8.2:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
+options-to-args@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/options-to-args/-/options-to-args-2.0.1.tgz#3eca2f1ced1f938b5a37692aced880e9a5ec8f6f"
+  dependencies:
+    protostar "^0.0.1"
+    type-detect "^4.0.0"
+
 os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
@@ -2616,6 +2623,10 @@ process-nextick-args@~1.0.6:
 progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
+
+protostar@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/protostar/-/protostar-0.0.1.tgz#5088482add1c52b23745780821b5e167ab04fcde"
 
 prr@~0.0.0:
   version "0.0.0"
@@ -3152,6 +3163,10 @@ type-check@~0.3.2:
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
   dependencies:
     prelude-ls "~1.1.2"
+
+type-detect@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.0.tgz#62053883542a321f2f7b25746dc696478b18ff6b"
 
 typedarray@^0.0.6:
   version "0.0.6"
