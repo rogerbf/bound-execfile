@@ -4,5 +4,5 @@ const boundExecFile = require(`./bound-execfile`)
 
 module.exports = Object.assign(
   boundExecFile.bind(null, { execFile, args }),
-  args
+  { args }
 )
