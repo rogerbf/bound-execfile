@@ -1,7 +1,7 @@
 {
   "name": "bound-execfile",
   "version": "2.0.0",
-  "description": "",
+  "description": "bind child_process.execFile to a file and configuration",
   "main": "./distribution/index.js",
   "scripts": {
     "test": "jest --config .jest",
