@@ -24,7 +24,7 @@ node({ eval: `console.log('hello')` }, (error, stdout, stderr) => {
 
 ## api
 
-### `boundSpawn(file[, configuration])`
+### `boundExecFile(file[, configuration])`
 
 - `file` - &lt;string&gt; the name or path of the executable file to run
 - `configuration` - &lt;Object&gt;
