@@ -38,7 +38,7 @@ Returns a function with the following signature:
 
 `fn([options], callback)`
 
-- `options` - &lt;Object&gt; passed on to [options-to-args](https://www.npmjs.com/package/options-to-args)
+- `options` - &lt;Object&gt; passed on to/and parsed by [options-to-args](https://www.npmjs.com/package/options-to-args)
 - `callback` - mirrors the callback signature as described in the documentation for [child_process.execFile](https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback)
 
 Returns &lt;ChildProcess&gt;
